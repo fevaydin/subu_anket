@@ -1,3 +1,12 @@
+function printDocument() {
+  window.print();
+}
+window.addEventListener("message", function (event) {
+  if (event.data === "print-command") {
+    window.print();
+  }
+});
+
 class AnketBilgi {
   constructor({
     anketAdi,

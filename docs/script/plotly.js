@@ -3,7 +3,7 @@ function drawBarChart() {
   // window.genelYuzdeSkor yüklendiyse kullan
   var yVal = window.genelYuzdeSkor ? Number(window.genelYuzdeSkor) : 0;
   Plotly.newPlot(
-    "barChart",
+    "grafikGenelMemnuniyet",
     [
       {
         x: [""],
@@ -81,7 +81,7 @@ function drawRadarChart() {
     "",
   ];
   Plotly.newPlot(
-    "radarChart",
+    "grafikRadar",
     [
       {
         type: "scatterpolar",
@@ -167,7 +167,7 @@ function drawPieChart() {
     });
   }
   Plotly.newPlot(
-    "pieChart",
+    "grafikIlPasta",
     [
       {
         type: "pie",
@@ -295,7 +295,7 @@ function drawHBarChart() {
   var dynamicMargin = Math.min(200, 10 + maxBirimUzunlugu * 7); // 7px/karakter + 10px boşluk
 
   Plotly.newPlot(
-    "hBarChart",
+    "grafikBirimMemnuniyet",
     [
       {
         y: birimlerTitleCase,
@@ -375,7 +375,7 @@ function drawBarChartCalisanSayilari() {
   var labels = appState.calisanSayisiAraliklari.araliklar;
   var values = appState.calisanSayisiAraliklari.sayac;
   Plotly.newPlot(
-    "barChartCalisanSayilari",
+    "grafikCalisanSayilari",
     [
       {
         x: labels,
@@ -458,7 +458,7 @@ function drawBarChartSehirMemnuniyetleri() {
   const filteredLabels = filteredData.labels;
   const filteredValues = filteredData.values;
   Plotly.newPlot(
-    "barChartSehirMemnuniyetleri",
+    "grafikSehirMemnuniyetleri",
     [
       {
         x: filteredLabels,
@@ -553,7 +553,7 @@ function drawPieChartCinsiyet() {
     ];
   }
   Plotly.newPlot(
-    "pieChart2",
+    "grafikCinsiyet",
     [
       {
         type: "pie",
@@ -620,6 +620,230 @@ if (document.readyState === "loading") {
         appState.cinsiyetSayaci
       ) {
         drawPieChartCinsiyet();
+        clearInterval(intervalPie);
+      }
+    }, 100);
+  }
+}
+
+// Bar grafiği4
+function drawBarChartFakulteMyo() {
+  // Sadece işveren, öğrenci ve personel sayfalarında ve birim seçili değilse çalışsın
+  const path = window.location.pathname;
+  if (
+    !(
+      path.includes("isveren") ||
+      path.includes("ogrenci") ||
+      path.includes("personel")
+    )
+  )
+    return;
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("birim")) return;
+  } catch (e) {}
+
+  if (
+    !appState.fakulteMyoHesapla ||
+    typeof appState.fakulteMyoHesapla !== "object"
+  )
+    return;
+
+  // fakulteMyoHesapla fonksiyonundan gelen memnuniyet oranlarını kullan
+  var labels = ["Fakülte", "MYO"];
+  var values = [
+    appState.fakulteMyoHesapla.fakulte
+      ? appState.fakulteMyoHesapla.fakulte.memnuniyet
+      : 0,
+    appState.fakulteMyoHesapla.myo
+      ? appState.fakulteMyoHesapla.myo.memnuniyet
+      : 0,
+  ];
+
+  Plotly.newPlot(
+    "grafikTurMemnuniyetleri",
+    [
+      {
+        x: labels,
+        y: values,
+        type: "bar",
+        width: 0.5,
+        marker: { color: "rgba(54, 162, 235, 1)" },
+        text: values.map((v) => Math.round(v)),
+        textposition: "outside",
+        textfont: {
+          color: "black",
+          size: 14,
+        },
+      },
+    ],
+    {
+      yaxis: {
+        range: [0, 109],
+        showgrid: true,
+        gridcolor: "rgba(200, 200, 200, 0.75)",
+      },
+      title: {
+        text: "7+1 / 3+1 Memnuniyet Oranları",
+        font: {
+          size: 18,
+          color: "#000000",
+        },
+      },
+    }
+  );
+}
+
+// appState.fakulteMyoHesapla hazır olduğunda veya DOMContentLoaded'da çalıştır
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", function () {
+    const path = window.location.pathname;
+    if (
+      (path.includes("isveren") ||
+        path.includes("ogrenci") ||
+        path.includes("personel")) &&
+      appState.fakulteMyoHesapla
+    ) {
+      drawBarChartFakulteMyo();
+    } else {
+      var intervalFakulteMyo = setInterval(function () {
+        const path = window.location.pathname;
+        if (
+          (path.includes("isveren") ||
+            path.includes("ogrenci") ||
+            path.includes("personel")) &&
+          appState.fakulteMyoHesapla
+        ) {
+          drawBarChartFakulteMyo();
+          clearInterval(intervalFakulteMyo);
+        }
+      }, 100);
+    }
+  });
+} else {
+  const path = window.location.pathname;
+  if (
+    (path.includes("isveren") ||
+      path.includes("ogrenci") ||
+      path.includes("personel")) &&
+    appState.fakulteMyoHesapla
+  ) {
+    drawBarChartFakulteMyo();
+  } else {
+    var intervalFakulteMyo = setInterval(function () {
+      const path = window.location.pathname;
+      if (
+        (path.includes("isveren") ||
+          path.includes("ogrenci") ||
+          path.includes("personel")) &&
+        appState.fakulteMyoHesapla
+      ) {
+        drawBarChartFakulteMyo();
+        clearInterval(intervalFakulteMyo);
+      }
+    }, 100);
+  }
+}
+
+// Pasta grafiği3
+function drawBarChartFakulteMyoKatilim() {
+  // Sadece personel, ogrenci veya isveren sayfasında ve appState.fakulteMyoHesapla varsa çalışsın
+  const path = window.location.pathname;
+  if (
+    !(
+      path.includes("personel") ||
+      path.includes("ogrenci") ||
+      path.includes("isveren")
+    ) ||
+    !appState.fakulteMyoHesapla
+  )
+    return;
+
+  var labels = ["7+1", "3+1"];
+  var values = [
+    appState.fakulteMyoHesapla.fakulte
+      ? appState.fakulteMyoHesapla.fakulte.katilimci
+      : 0,
+    appState.fakulteMyoHesapla.myo
+      ? appState.fakulteMyoHesapla.myo.katilimci
+      : 0,
+  ];
+  Plotly.newPlot(
+    "grafikTurKatilimlari",
+    [
+      {
+        type: "pie",
+        labels: labels,
+        values: values,
+        textinfo: "label+percent",
+        textfont: {
+          color: "white",
+          family: "Arial Black, sans-serif",
+          size: 12,
+        },
+        marker: {
+          colors: ["#4285F4", "#FF6D01"],
+        },
+      },
+    ],
+    {
+      title: {
+        text: "7+1 / 3+1 Katılımcı Dağılımı",
+        font: {
+          size: 18,
+          color: "#000000",
+          family: "Arial, sans-serif",
+        },
+      },
+    }
+  );
+}
+
+// appState.fakulteMyoHesapla hazır olduğunda veya DOMContentLoaded'da çalıştır
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", function () {
+    const path = window.location.pathname;
+    if (
+      (path.includes("personel") ||
+        path.includes("ogrenci") ||
+        path.includes("isveren")) &&
+      appState.fakulteMyoHesapla
+    ) {
+      drawPieChartFakulteMyoKatilim();
+    } else {
+      var intervalPie = setInterval(function () {
+        const path = window.location.pathname;
+        if (
+          (path.includes("personel") ||
+            path.includes("ogrenci") ||
+            path.includes("isveren")) &&
+          appState.fakulteMyoHesapla
+        ) {
+          drawBarChartFakulteMyoKatilim();
+          clearInterval(intervalPie);
+        }
+      }, 100);
+    }
+  });
+} else {
+  const path = window.location.pathname;
+  if (
+    (path.includes("personel") ||
+      path.includes("ogrenci") ||
+      path.includes("isveren")) &&
+    appState.fakulteMyoHesapla
+  ) {
+    drawBarChartFakulteMyoKatilim();
+  } else {
+    var intervalPie = setInterval(function () {
+      const path = window.location.pathname;
+      if (
+        (path.includes("personel") ||
+          path.includes("ogrenci") ||
+          path.includes("isveren")) &&
+        appState.fakulteMyoHesapla
+      ) {
+        drawBarChartFakulteMyoKatilim();
         clearInterval(intervalPie);
       }
     }, 100);

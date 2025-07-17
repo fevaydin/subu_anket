@@ -5,27 +5,18 @@
   <title>Rapor</title>
 
   <link rel="stylesheet" href="../../css/ogrenci-style.css">
-  <script src="/assets/libs/plotly-3.0.1.min.js"></script>
-  <script src="/assets/libs/xlsx.full.min.js"></script>
+  <script src="../../assets/libs/plotly-3.0.1.min.js"></script>
+  <script src="../../assets/libs/xlsx.full.min.js"></script>
   <script src="../../script/config.js"></script>
   <script src="../../script/analysis.js"></script>
-
-  <script>
-    function printDocument() { window.print(); }
-    window.addEventListener('message', function (event) {
-      if (event.data === 'print-command') {
-        window.print();
-      }
-    });
-  </script>
 
 </head>
 
 <body>
   <header id="print-button" class="header">
     <div class="logo" style="height: 60px; display: flex; align-items: center;">
-      <a href="/index.html" style="display: inline-block; height: 100%;"><img src="../../assets/logo/kalite_logo.svg"
-          alt="Kalite Logo" style="height: 60px; cursor: pointer;"></a>
+      <a href="../../index.html" style="display: inline-block; height: 100%;"><img
+          src="../../assets/logo/kalite_logo.svg" alt="Kalite Logo" style="height: 60px; cursor: pointer;"></a>
     </div>
     <h1 class="header-title" style="font-size: 1.5em; margin: 0 0 0 10px;">SUBÜ Anket</h1>
     <div style="text-align: right; margin-right: 10px;">
@@ -56,17 +47,42 @@
     <p id="katilimci-sayisi" style="text-align: center; font-size: 1.2em;"></p>
 
     <div id="chart-container">
-      <div id="barChart" class="chart-wrapper"></div>
-      <div id="radarChart" class="chart-wrapper"></div>
+      <div id="grafikGenelMemnuniyet" class="chart-wrapper"></div>
+      <div id="grafikRadar" class="chart-wrapper"></div>
     </div>
-
+    <br></br>
     <div id="chart-container">
-      <div id="pieChart" class="chart-wrapper"></div>
-      <div id="hBarChart" class="chart-wrapper"></div>
+      <div id="grafikIlPasta" class="chart-wrapper"></div>
+      <div id="grafikBirimMemnuniyet" class="chart-wrapper"></div>
     </div>
+  </div>
 
-    <p style="text-align: center; font-size: 1.8em;">Yüksek Alanlar Tablosu</p>
-    <table id="ozelTablo"></table>
+  <div class="page-break"></div>
+
+  <div class="page graphic-page"></div>
+  <div id="chart-container-tur-grafikleri-placeholder"></div>
+
+  <script>
+    (function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const birim = urlParams.get('birim');
+      if (!birim) {
+        var container = document.getElementById('chart-container-tur-grafikleri-placeholder');
+        if (container) {
+          container.innerHTML = `
+            <div id="chart-container">
+              <div id="grafikTurMemnuniyetleri" class="chart-wrapper"></div>
+              <div id="grafikTurKatilimlari" class="chart-wrapper"></div>
+            </div>
+            <br></br>
+          `;
+        }
+      }
+    })();
+  </script>
+
+  <p style="text-align: center; font-size: 1.8em;">Yüksek Alanlar Tablosu</p>
+  <table id="ozelTablo"></table>
 
   </div>
   <div class="page-break"></div>

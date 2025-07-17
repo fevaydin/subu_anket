@@ -96,6 +96,10 @@
     padding-left: 40px;
     padding-right: 40px;
   }
+
+  .graphic-page {
+    margin-top: 40px !important;
+  }
 }
 
 body {

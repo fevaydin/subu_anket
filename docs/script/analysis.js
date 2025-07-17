@@ -5,6 +5,7 @@ const appState = {
   sehirSayaclari: null,
   calisanSayisiAraliklari: null,
   ifadeMem: [],
+  fakulteMyoHesapla: null,
 };
 
 const ifadeOranlari = [];
@@ -115,6 +116,13 @@ async function analysisExcel() {
     );
     if (typeof drawPieChartCinsiyet === "function") drawPieChartCinsiyet();
   }
+
+  appState.fakulteMyoHesapla = fakulteMyoHesapla(
+    worksheet,
+    range,
+    filteredRows
+  );
+  console.log(appState.fakulteMyoHesapla);
 }
 window.addEventListener("DOMContentLoaded", analysisExcel);
 
@@ -511,6 +519,83 @@ function birimHesapla(worksheet, range, filteredRows) {
   }
 
   return birimMemnuniyet;
+}
+
+// Fakülte ve MYO geçen birimler için toplu katılımcı ve memnuniyet hesaplama
+function fakulteMyoHesapla(worksheet, range, filteredRows) {
+  let birimStnNo;
+  if (filteredRows) {
+    birimStnNo = anketBilgileri[anketKey].altBirimStnNo;
+  } else {
+    birimStnNo = anketBilgileri[anketKey].birimStnNo;
+  }
+  const ogrenciBilgi = anketBilgileri[anketKey];
+  const baslangicSutun = ogrenciBilgi.grupBas[0];
+  const bitisSutun = ogrenciBilgi.grupSon[ogrenciBilgi.grupSon.length - 1];
+
+  let fakulteKatilimci = 0,
+    myoKatilimci = 0;
+  let fakulteCevaplar = [],
+    myoCevaplar = [];
+  const rowRange =
+    filteredRows ||
+    Array.from(
+      { length: range.e.r - range.s.r },
+      (_, idx) => range.s.r + 1 + idx
+    );
+  for (const r of rowRange) {
+    const birimCell = worksheet[XLSX.utils.encode_cell({ c: birimStnNo, r })];
+    const birimAdi = (birimCell?.v ?? "").toString().trim().toLowerCase();
+    if (!birimAdi) continue;
+    if (/fakülte/.test(birimAdi)) {
+      fakulteKatilimci++;
+      for (let c = baslangicSutun; c <= bitisSutun; c++) {
+        const cevapCell = worksheet[XLSX.utils.encode_cell({ c, r })];
+        if (
+          cevapCell &&
+          [1, 2, 3, 4, 5, "1", "2", "3", "4", "5"].includes(cevapCell.v)
+        ) {
+          fakulteCevaplar.push(Number(cevapCell.v));
+        }
+      }
+    } else if (/myo/.test(birimAdi)) {
+      myoKatilimci++;
+      for (let c = baslangicSutun; c <= bitisSutun; c++) {
+        const cevapCell = worksheet[XLSX.utils.encode_cell({ c, r })];
+        if (
+          cevapCell &&
+          [1, 2, 3, 4, 5, "1", "2", "3", "4", "5"].includes(cevapCell.v)
+        ) {
+          myoCevaplar.push(Number(cevapCell.v));
+        }
+      }
+    }
+  }
+
+  const fakulteMemnuniyet =
+    fakulteCevaplar.length > 0
+      ? Number(
+          (
+            (fakulteCevaplar.reduce((sum, v) => sum + v, 0) /
+              fakulteCevaplar.length) *
+            20
+          ).toFixed(2)
+        )
+      : 0;
+  const myoMemnuniyet =
+    myoCevaplar.length > 0
+      ? Number(
+          (
+            (myoCevaplar.reduce((sum, v) => sum + v, 0) / myoCevaplar.length) *
+            20
+          ).toFixed(2)
+        )
+      : 0;
+
+  return {
+    fakulte: { katilimci: fakulteKatilimci, memnuniyet: fakulteMemnuniyet },
+    myo: { katilimci: myoKatilimci, memnuniyet: myoMemnuniyet },
+  };
 }
 
 function calisanSayisiAraliklari(worksheet, range, filteredRows) {
