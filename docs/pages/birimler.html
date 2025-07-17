@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/birimler.css">
+
+  <script src="/assets/libs/xlsx.full.min.js"></script>
+  <script src="/script/config.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo">
+      <a href="/index.html"><img src="/assets/logo/kalite_logo.svg" alt="Kalite Logo"></a>
+    </div>
+    <h1 class="header-title" id="header-title">Anket Birimleri</h1>
+  </header>
+
+  <div class="main-container">
+    <div class="content-card">
+      <div class="tabs-container">
+        <div class="tabs-wrapper" id="tablar">
+          <!-- Sekmeler dinamik olarak eklenecek -->
+        </div>
+      </div>
+
+      <div class="birim-container">
+        <div class="subu-section">
+          <div class="section-title">Kurum</div>
+          <ul class="birim-list">
+            <li class="birim-item">
+              <a class="birim-link subu-link" id="subu-link" href="#">
+                <span>SUBÜ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="section-title">Birimler</div>
+          <ul id="birim-listesi" class="birim-list">
+            <li class="birim-item">
+              <div class="loading-text">Yükleniyor...</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/script/birimler.js"></script>
+</body>
+
+</html>

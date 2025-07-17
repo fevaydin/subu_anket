@@ -1,0 +1,328 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url('/assets/fonts/opensans/OpenSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url('/assets/fonts/opensans/OpenSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url('/assets/fonts/opensans/OpenSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.header {
+  background: #013DA6;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  font-family: 'OpenSans', 'Arial', sans-serif;
+}
+
+.logo {
+  height: 60px;
+  border-radius: 8px;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.header-title {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+@media print {
+  #print-button {
+    display: none;
+  }
+
+  @page {
+    margin: 0;
+    display: none;
+  }
+
+  body {
+    zoom: 0.55;
+    margin: 2cm;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cover-page {
+    zoom: 1.81818181 !important;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .graphic-page {
+    padding-top: 40px;
+    zoom: 1.25 !important;
+  }
+
+  .table-page {
+    padding-top: 70px;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+body {
+  font-family: "Times New Roman", Times, serif;
+  margin: 20px;
+}
+
+@media screen {
+  .cover-page {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .chart-wrapper {
+    flex-basis: 100%;
+    min-width: unset;
+  }
+}
+
+table {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+.red {
+  background-color: #f28E86;
+}
+
+.orange {
+  background-color: #ffc599;
+}
+
+.yellow {
+  background-color: #fef2cd;
+}
+
+.light-green {
+  background-color: #a6e3b7;
+}
+
+.green {
+  background-color: #7ad694;
+}
+
+.blue {
+  background-color: #b3cefb;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.chart-wrapper {
+  width: 100%;
+  max-width: 520px;
+  height: 550px;
+  aspect-ratio: 1 / 1;
+  flex-basis: calc(50% - 20px);
+  min-width: 300px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#ozelTablo {
+  width: 80%;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#ozelTablo th,
+#ozelTablo td {
+  padding: 8px;
+  border: 0.1px solid #000;
+}
+
+#ozelTablo th {
+  font-weight: bold;
+}
+
+/* Renk sınıfları (y, o, d) */
+#ozelTablo .y1 {
+  background-color: #D1F1DA;
+}
+
+#ozelTablo .y2 {
+  background-color: #A6E3B7;
+}
+
+#ozelTablo .y3 {
+  background-color: #7AD694;
+}
+
+#ozelTablo .y4 {
+  background-color: #57BF74;
+}
+
+#ozelTablo .y5 {
+  background-color: #34A853;
+}
+
+#ozelTablo .o1 {
+  background-color: #FEF2CD;
+}
+
+#ozelTablo .o2 {
+  background-color: #FDE49B;
+}
+
+#ozelTablo .o3 {
+  background-color: #FDD868;
+}
+
+#ozelTablo .o4 {
+  background-color: #FCCA36;
+}
+
+#ozelTablo .o5 {
+  background-color: #FBBC04;
+}
+
+#ozelTablo .d1 {
+  background-color: #FBDAD7;
+}
+
+#ozelTablo .d2 {
+  background-color: #F7B4AE;
+}
+
+#ozelTablo .d3 {
+  background-color: #F28E86;
+}
+
+#ozelTablo .d4 {
+  background-color: #EE695E;
+}
+
+#ozelTablo .d5 {
+  background-color: #EA4335;
+}
+
+#grupTablo0 {
+  margin: 20px auto;
+}
+
+@page: first {
+  margin: 0;
+  padding: 0;
+}
+
+/* Kapak sayfası stili */
+.cover-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.cover-page p:first-child {
+  margin-top: 0;
+  margin-bottom: 0;
+  align-self: flex-start;
+}
+
+.cover-page img {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.cover-page h1 {
+  color: #003DA0;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-size: 2.4rem;
+  /* Büyük font boyutu */
+  margin: 5px 0;
+  /* Dikey boşluk */
+  text-align: center;
+  /* Ortalanmış metin */
+}
+
+.cover-page h2 {
+  color: #003DA0;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 1.2rem;
+  /* Büyük font boyutu */
+  margin: 5px 0;
+  /* Dikey boşluk */
+  text-align: center;
+  /* Ortalanmış metin */
+}
+
+.cover-page p {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.2rem;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.cover-page .cover-year {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
