@@ -8,7 +8,7 @@ const allTabConfig = {
         label: "Öğrenci",
         sheetIndex: 0,
         birimStnNo: anketBilgileri["arti_bir_ogrenci"].birimStnNo,
-        page: "/pages/+1/ogrenci.html",
+        page: "/subu_anket/pages/+1/ogrenci.html",
         dataYolu: anketBilgileri["arti_bir_ogrenci"].excelYolu,
       },
       {
@@ -16,7 +16,7 @@ const allTabConfig = {
         label: "İşveren",
         sheetIndex: 1,
         birimStnNo: anketBilgileri["arti_bir_isveren"].birimStnNo,
-        page: "/pages/+1/isveren.html",
+        page: "/subu_anket/pages/+1/isveren.html",
         dataYolu: anketBilgileri["arti_bir_isveren"].excelYolu,
       },
       {
@@ -24,7 +24,7 @@ const allTabConfig = {
         label: "Öğretim Elemanı",
         sheetIndex: 2,
         birimStnNo: anketBilgileri["arti_bir_personel"].birimStnNo,
-        page: "/pages/+1/personel.html",
+        page: "/subu_anket/pages/+1/personel.html",
         dataYolu: anketBilgileri["arti_bir_personel"].excelYolu,
       },
     ],
@@ -37,7 +37,7 @@ const allTabConfig = {
         label: "Mezun",
         sheetIndex: 0,
         birimStnNo: 27, // 28. sütun, index 27
-        page: "/pages/mezun/mezun.html",
+        page: "/subu_anket/pages/mezun/mezun.html",
         dataYolu: anketBilgileri["mezun_memnuniyeti"].excelYolu,
       },
     ],
