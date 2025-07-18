@@ -758,6 +758,10 @@ function drawBarChartFakulteMyoKatilim() {
     !appState.fakulteMyoHesapla
   )
     return;
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("birim")) return;
+  } catch (e) {}
 
   var labels = ["7+1", "3+1"];
   var values = [

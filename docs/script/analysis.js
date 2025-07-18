@@ -122,7 +122,6 @@ async function analysisExcel() {
     range,
     filteredRows
   );
-  console.log(appState.fakulteMyoHesapla);
 }
 window.addEventListener("DOMContentLoaded", analysisExcel);
 

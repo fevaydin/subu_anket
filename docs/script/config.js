@@ -37,7 +37,7 @@ const anketBilgileri = {
   arti_bir_ogrenci: new AnketBilgi({
     anketAdi: "ogrenci",
     baslik: "+1 Öğrenci Memnuniyeti Anketi",
-    excelYolu: "/subu_anket/assets/data/arti_bir.xlsx",
+    excelYolu: "../../assets/data/arti_bir.xlsx",
     excelSayfaAdi: "ogrenci",
     birimStnNo: 4,
     altBirimStnNo: 5,
@@ -73,7 +73,7 @@ const anketBilgileri = {
   arti_bir_isveren: new AnketBilgi({
     anketAdi: "isveren",
     baslik: "+1 İşveren Memnuniyeti Anketi",
-    excelYolu: "/subu_anket/assets/data/arti_bir.xlsx",
+    excelYolu: "../../assets/data/arti_bir.xlsx",
     excelSayfaAdi: "isletme",
     birimStnNo: 4,
     altBirimStnNo: 5,
@@ -106,7 +106,7 @@ const anketBilgileri = {
   arti_bir_personel: new AnketBilgi({
     anketAdi: "personel",
     baslik: "+1 Öğretim Elemanı Memnuniyeti Anketi",
-    excelYolu: "/subu_anket/assets/data/arti_bir.xlsx",
+    excelYolu: "../../assets/data/arti_bir.xlsx",
     excelSayfaAdi: "personel",
     birimStnNo: 4,
     altBirimStnNo: 5,
@@ -137,7 +137,7 @@ const anketBilgileri = {
   mezun_memnuniyeti: new AnketBilgi({
     anketAdi: "mezun",
     baslik: "Mezun Memnuniyeti Anketi",
-    excelYolu: "/subu_anket/assets/data/mezun.xlsx",
+    excelYolu: "../../assets/data/mezun.xlsx",
     excelSayfaAdi: "Mezun Memnuniyeti Anketi",
     birimStnNo: 27,
     altBirimStnNo: 28,
